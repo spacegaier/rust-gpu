@@ -1,7 +1,14 @@
 #![no_std]
 #![cfg_attr(
     target_arch = "spirv",
-    feature(asm, register_attr, repr_simd, core_intrinsics, lang_items),
+    feature(
+        asm,
+        register_attr,
+        repr_simd,
+        core_intrinsics,
+        lang_items
+    ),
+    allow(incomplete_features),
     register_attr(spirv)
 )]
 // Our standard Clippy lints that we use in Embark projects, we opt out of a few that are not appropriate for the specific crate (yet)
@@ -38,6 +45,7 @@
     future_incompatible,
     nonstandard_style
 )]
+#![feature(const_generics)]
 
 #[cfg(not(target_arch = "spirv"))]
 #[macro_use]
@@ -51,10 +59,10 @@ pub(crate) mod sealed;
 pub mod storage_class;
 mod textures;
 pub mod vector;
+pub mod image;
 
 pub use glam;
 pub use num_traits;
-pub use textures::*;
 
 /// Calls the `OpDemoteToHelperInvocationEXT` instruction, which corresponds to discard() in HLSL
 #[spirv_std_macros::gpu_only]
