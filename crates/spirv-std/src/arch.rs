@@ -3,7 +3,11 @@
 //! This module is intended as a low level abstraction over SPIR-V instructions.
 //! These functions will typically map to a single instruction, and will perform
 //! no additional safety checks beyond type-checking.
+mod arithmetic;
+
 use crate::{scalar::Scalar, vector::Vector};
+
+pub use arithmetic::*;
 
 /// Result is true if any component of `vector` is true, otherwise result is
 /// false.
