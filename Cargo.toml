@@ -1,4 +1,6 @@
+
 [workspace]
+exclude = ["tests/"]
 members = [
     "examples/runners/cpu",
     "examples/runners/ash",

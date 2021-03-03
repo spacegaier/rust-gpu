@@ -1,0 +1,2 @@
+[alias]
+testsuite = "test --release --manifest-path=tests/Cargo.toml"
