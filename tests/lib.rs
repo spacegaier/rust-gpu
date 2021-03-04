@@ -13,7 +13,7 @@ const TARGET_DIR: &str = "target/compiletest";
 fn ui() {
     // Pull in rustc_codegen_spirv as a dynamic library in the same way
     // spirv-builder does.
-    let manifest_dir = std::fs::canonicalize("..").unwrap();
+    let manifest_dir = std::fs::canonicalize("../").unwrap();
     let codegen_backend_path = find_rustc_codegen_spirv();
 
     build_spirv_std(&manifest_dir, &codegen_backend_path);
@@ -37,15 +37,15 @@ fn run_mode(mode: &'static str, codegen_backend_path: &Path) {
     let flags = test_rustc_flags(
         codegen_backend_path,
         &[
-            &std::fs::canonicalize(format!("../{}/spirv-unknown-unknown/debug/deps", TARGET_DIR)).unwrap(),
-            &std::fs::canonicalize(format!("../{}/debug", TARGET_DIR)).unwrap(),
+            &PathBuf::from(format!("../{}/spirv-unknown-unknown/debug/deps", TARGET_DIR)),
+            &PathBuf::from(format!("../{}/debug", TARGET_DIR)),
         ]
     );
 
     config.target_rustcflags = Some(flags);
     config.mode = mode.parse().expect("Invalid mode");
     config.target = String::from("spirv-unknown-unknown");
-    config.src_base = PathBuf::from(format!("./{}", mode)).canonicalize().unwrap();
+    config.src_base = PathBuf::from(format!("./{}", mode));
     config.build_base = PathBuf::from(format!("../{}-results", TARGET_DIR));
     config.clean_rmeta();
 
